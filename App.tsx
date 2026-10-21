@@ -1,45 +1,51 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
-
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
+import React, { useCallback, useState } from 'react';
+import { ActivityIndicator, StatusBar, Text, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AppNavigator } from './src/navigation/AppNavigator';
+import { ResortProvider, useResort } from './src/store/ResortStore';
+import { Onboarding, Splash } from './src/screens/Welcome';
+import { MotionProvider } from './src/components/Motion';
+import { Button } from './src/components/UI';
+import { colors, styles } from './src/theme';
+function Content() {
+  const [splash, setSplash] = useState(true);
+  const finish = useCallback(() => setSplash(false), []);
+  const { state, ready, error, retry } = useResort();
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
+    <View style={styles.page}>
+      <StatusBar barStyle="light-content" backgroundColor={colors.bg} />
+      {splash ? (
+        <Splash onDone={finish} />
+      ) : !ready ? (
+        <View style={{ flex: 1, justifyContent: 'center', padding: 24 }}>
+          {error ? (
+            <Text style={styles.muted}>{error}</Text>
+          ) : (
+            <ActivityIndicator color={colors.blue} />
+          )}
+        </View>
+      ) : state.onboarded ? (
+        <AppNavigator />
+      ) : (
+        <Onboarding />
+      )}
+      {ready && !!error && (
+        <View style={styles.card}>
+          <Text style={styles.muted}>{error}</Text>
+          <Button title="Retry Save" onPress={retry} />
+        </View>
+      )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
-export default App;
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <MotionProvider>
+        <ResortProvider>
+          <Content />
+        </ResortProvider>
+      </MotionProvider>
+    </SafeAreaProvider>
+  );
+}

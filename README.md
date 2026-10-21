@@ -1,97 +1,56 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# The Reef Beach Resort
 
-# Getting Started
+React Native + TypeScript mobile application based on the supplied designs. All images are bundled from `src/assets`.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
-
-## Step 1: Start Metro
-
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Run
 
 ```sh
-# Using npm
+npm install
 npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+For Android, start an emulator and run `npm run android`.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Install iOS dependencies after changing native packages:
 
-## Step 3: Modify your app
+```sh
+cd ios
+pod install
+```
 
-Now that you have successfully run the app, let's make changes!
+The available Homebrew CocoaPods executable on this workstation is `/opt/homebrew/opt/ruby/bin/pod`. The system Ruby/Bundler combination does not match the existing Gemfile.lock.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## Structure
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+- `src/navigation`: typed React Navigation stacks and six bottom tabs.
+- `src/screens`: splash, onboarding, reservations, dining, events, weather, reception and checklist.
+- `src/components`: shared layout, gradient buttons, fields, icons and date selector.
+- `src/store`: AsyncStorage-backed guest state with ordered writes and save-error feedback.
+- `src/data`: the supplied seating, food, bar and event catalogues.
+- `src/services`: Open-Meteo weather and sea-temperature requests.
+- `src/utils`: date, price and beach-place validation helpers.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## Behaviour
 
-## Congratulations! :tada:
+The splash shows the supplied background and logo, with a four-second WebView animation. Onboarding completion is persisted. Content scrolls on small screens and respects safe areas.
 
-You've successfully run and modified your React Native App. :partying_face:
+Reservations, orders and reception requests are local to the device, as requested. There is no server booking, payment, restaurant dispatch or staff messaging. A reserved place is unavailable for another local reservation on the same date. Reservations can be cancelled; saved orders can be reviewed. Reception request statuses are updated manually, with no simulated staff activity.
 
-### Now what?
+The menu contains the supplied ten Food and ten Bar items priced in euros, matching the screenshots. The separate Australian-dollar menu was not mixed into this catalogue.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+No guest bookings, orders, messages or weather values are prefilled. The checklist starts with the eight requested items. User additions, checkmarks, deletions, cart contents, local orders, reservations, request statuses, onboarding and beach coordinates survive restarts.
 
-# Troubleshooting
+Weather requires the user to enter the beach coordinates. The app loads seven days of hourly forecast, local sunrise/sunset and marine temperature from Open-Meteo. Unavailable marine values remain unavailable. Network errors have retry controls. Sources: https://open-meteo.com/en/docs and https://open-meteo.com/en/docs/marine-weather-api .
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+Eight event cards use the supplied local assets. The first event's date, time, location and programme come from the supplied screenshot. Missing schedules for the other seven events are marked as unannounced rather than fabricated. Update `src/data/catalog.ts` with the resort's actual event schedule when supplied.
 
-# Learn More
+## Checks
 
-To learn more about React Native, take a look at the following resources:
+```sh
+npx tsc --noEmit
+npm test -- --runInBand --watchman=false
+npm run lint
+```
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Tests cover splash transition, cart totals, valid beach numbers, persistence, checklist edits, local booking and beach checkout. Native UI interaction requires Simulator access.
