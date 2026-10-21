@@ -1,4 +1,4 @@
-package com.thereefbeachresort
+package com.thereef.beachresort
 
 import android.os.Bundle
 import com.facebook.react.ReactActivity
