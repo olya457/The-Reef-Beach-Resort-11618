@@ -1,15 +1,18 @@
 import { Platform, StyleSheet } from 'react-native';
 export const colors = {
-  bg: '#090d10',
-  card: '#151a20',
-  raised: '#1d2631',
-  border: '#29333e',
-  text: '#f0f1f4',
-  muted: '#9ba7b5',
-  blue: '#4d91bc',
-  primary: '#244e79',
-  gold: '#c9a455',
-  green: '#78a894',
+  bg: '#F7AD68',
+  card: '#FFF0DF',
+  raised: '#FFD4AB',
+  border: '#B66B36',
+  text: '#3B2115',
+  muted: '#704127',
+  accent: '#943B16',
+  primary: '#A33E16',
+  primaryEnd: '#7E2D12',
+  onPrimary: '#FFF8F0',
+  selected: '#FFC28A',
+  gold: '#784315',
+  green: '#355B36',
 };
 export const styles = StyleSheet.create({
   page: { flex: 1, backgroundColor: colors.bg },
@@ -80,5 +83,5 @@ export const styles = StyleSheet.create({
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
   cell: { flexGrow: 1, flexBasis: '45%', minWidth: 120 },
   back: { paddingVertical: 10, minHeight: 44, alignSelf: 'flex-start' },
-  selected: { backgroundColor: colors.primary, borderColor: colors.blue },
+  selected: { backgroundColor: colors.selected, borderColor: colors.accent },
 });

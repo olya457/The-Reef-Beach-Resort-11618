@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   Image,
-  ImageBackground,
   ScrollView,
   Text,
   useWindowDimensions,
@@ -10,12 +9,12 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import { onboarding } from '../data/catalog';
-import { Button } from '../components/UI';
+import { Button, Icon } from '../components/UI';
 import { Reveal, useReducedMotion } from '../components/Motion';
 import { useResponsive } from '../hooks/useResponsive';
 import { colors, styles as s } from '../theme';
 import { useResort } from '../store/ResortStore';
-const spinner = `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;background:transparent;overflow:hidden}body{display:flex;height:90px;align-items:center;justify-content:center}.s{width:48px;height:48px;border:6px dotted #eff3f7;border-bottom-color:#54677c;border-left-color:#8797a9;border-radius:50%;animation:r 1s linear infinite}@keyframes r{to{transform:rotate(360deg)}}</style></head><body><div class="s"></div><script>setTimeout(function(){window.ReactNativeWebView.postMessage('finished')},4000)</script></body></html>`;
+const spinner = `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;background:transparent;overflow:hidden}body{display:flex;height:90px;align-items:center;justify-content:center}.s{width:48px;height:48px;border:6px dotted ${colors.accent};border-bottom-color:${colors.border};border-left-color:${colors.raised};border-radius:50%;animation:r 1s linear infinite}@keyframes r{to{transform:rotate(360deg)}}</style></head><body><div class="s"></div><script>setTimeout(function(){window.ReactNativeWebView.postMessage('finished')},4000)</script></body></html>`;
 export function Splash({ onDone }: { onDone: () => void }) {
   const { height, width } = useWindowDimensions();
   const reduced = useReducedMotion();
@@ -24,10 +23,7 @@ export function Splash({ onDone }: { onDone: () => void }) {
     return () => clearTimeout(timer);
   }, [onDone]);
   return (
-    <ImageBackground
-      source={require('../assets/reef-splash-background.png')}
-      style={{ flex: 1 }}
-    >
+    <View style={s.page}>
       <SafeAreaView
         style={{
           flex: 1,
@@ -37,27 +33,33 @@ export function Splash({ onDone }: { onDone: () => void }) {
         }}
       >
         <Reveal delay={100}>
-          <Image
-            source={require('../assets/reef-resort-logo.png')}
+          <View
             style={{
-              width: Math.min(243, height * 0.29),
-              height: Math.min(263, height * 0.28),
-              resizeMode: 'contain',
+              width: Math.min(220, width * 0.55),
+              height: Math.min(220, width * 0.55),
+              borderRadius: 110,
+              backgroundColor: colors.card,
+              alignItems: 'center',
+              justifyContent: 'center',
               marginBottom: height * 0.07,
             }}
-          />
+          >
+            <Icon name="sun" size={100} color={colors.accent} />
+          </View>
         </Reveal>
         <Text
           style={[
             s.title,
             {
-              fontSize: Math.min(48, width * 0.115),
-              lineHeight: 60,
-              letterSpacing: width < 350 ? 4 : 6,
+              fontSize: Math.min(40, width * 0.1),
+              lineHeight: 48,
+              letterSpacing: 0.5,
+              textAlign: 'center',
+              paddingHorizontal: 24,
             },
           ]}
         >
-          THE REEF
+          Shore Day Planner
         </Text>
         <View
           style={{
@@ -67,8 +69,8 @@ export function Splash({ onDone }: { onDone: () => void }) {
             marginVertical: height < 700 ? 16 : 26,
           }}
         />
-        <Text style={[s.text, { fontSize: 12, letterSpacing: 6 }]}>
-          BEACH RESORT
+        <Text style={[s.text, { fontSize: 11, letterSpacing: 2 }]}>
+          YOUR DAY BY THE SHORE
         </Text>
         <View style={{ width: 100, height: 90, marginTop: 22 }}>
           <WebView
@@ -91,7 +93,7 @@ export function Splash({ onDone }: { onDone: () => void }) {
           />
         </View>
       </SafeAreaView>
-    </ImageBackground>
+    </View>
   );
 }
 export function Onboarding() {
@@ -124,7 +126,7 @@ export function Onboarding() {
                 style={{
                   width: 32,
                   height: 3,
-                  backgroundColor: i === step ? colors.blue : colors.border,
+                  backgroundColor: i === step ? colors.accent : colors.border,
                 }}
               />
             ))}

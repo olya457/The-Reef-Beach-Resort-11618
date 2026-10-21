@@ -142,16 +142,28 @@ export function Button({
         onPressOut={() => animate(1)}
         style={[
           buttonStyles.surface,
-          { borderColor: secondary ? colors.border : colors.blue },
+          { borderColor: secondary ? colors.border : colors.accent },
         ]}
       >
         <LinearGradient
           pointerEvents="none"
           accessible={false}
-          colors={secondary ? [colors.card, colors.bg] : ['#2b5984', '#23476e']}
+          colors={
+            secondary
+              ? [colors.card, colors.bg]
+              : [colors.primary, colors.primaryEnd]
+          }
           style={StyleSheet.absoluteFill}
         />
-        <Text style={[s.text, buttonStyles.label]}>{title}</Text>
+        <Text
+          style={[
+            s.text,
+            buttonStyles.label,
+            { color: secondary ? colors.text : colors.onPrimary },
+          ]}
+        >
+          {title}
+        </Text>
       </Pressable>
     </Animated.View>
   );

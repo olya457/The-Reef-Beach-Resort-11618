@@ -37,7 +37,7 @@ export function MenuScreen({
           <Icon name="cart" />
           {count > 0 && (
             <Text
-              style={[s.eyebrow, { color: colors.blue, textAlign: 'center' }]}
+              style={[s.eyebrow, { color: colors.accent, textAlign: 'center' }]}
             >
               {count}
             </Text>
@@ -55,7 +55,7 @@ export function MenuScreen({
               flex: 1,
               padding: 14,
               borderBottomWidth: 2,
-              borderColor: category === tab ? colors.blue : colors.border,
+              borderColor: category === tab ? colors.accent : colors.border,
             }}
           >
             <Text style={[s.text, { textAlign: 'center' }]}>{tab}</Text>
@@ -352,7 +352,7 @@ export function OrderConfirmedScreen({
       <View
         style={[
           s.card,
-          { backgroundColor: colors.raised, borderColor: colors.blue },
+          { backgroundColor: colors.raised, borderColor: colors.accent },
         ]}
       >
         <Text style={[s.eyebrow, { color: colors.green }]}>✓ ORDER SAVED</Text>

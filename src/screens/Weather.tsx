@@ -155,7 +155,7 @@ export function WeatherScreen() {
           />
         </View>
       )}
-      {loading && <ActivityIndicator color={colors.blue} size="large" />}
+      {loading && <ActivityIndicator color={colors.accent} size="large" />}
       {!!error && (
         <View style={s.card}>
           <Text style={s.muted}>{error}</Text>
@@ -192,7 +192,7 @@ export function WeatherScreen() {
                   </View>
                   <Icon
                     name={hour.code === 0 ? 'sun' : 'weather'}
-                    color={colors.blue}
+                    color={colors.accent}
                     size={56}
                   />
                 </View>
@@ -222,7 +222,7 @@ export function WeatherScreen() {
                       { minHeight: 115 },
                     ]}
                   >
-                    <Text style={{ color: colors.blue }}>◇</Text>
+                    <Text style={{ color: colors.accent }}>◇</Text>
                     <Text style={s.muted}>{label}</Text>
                     <Text style={s.label}>{reading}</Text>
                   </View>

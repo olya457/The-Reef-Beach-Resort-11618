@@ -74,7 +74,7 @@ export function ReservationsScreen({
             </Text>
           </View>
           <Text style={s.muted}>{item.short}</Text>
-          <Text style={[s.eyebrow, { color: colors.blue }]}>
+          <Text style={[s.eyebrow, { color: colors.accent }]}>
             {item.capacity === 1 ? '1 GUEST' : `UP TO ${item.capacity} GUESTS`}
           </Text>
           <Button
@@ -160,7 +160,7 @@ export function BookingScreen({
             style={{
               padding: 10,
               borderWidth: 1,
-              borderColor: zone.id === item.id ? colors.blue : colors.border,
+              borderColor: zone.id === item.id ? colors.accent : colors.border,
               opacity: zone.id === item.id ? 1 : 0.35,
               gap: 12,
             }}
@@ -191,10 +191,10 @@ export function BookingScreen({
                     borderRadius: zone.id === 'single' ? 24 : 3,
                     borderWidth: place === n ? 2 : 1,
                     borderStyle: occupied.includes(n) ? 'dashed' : 'solid',
-                    borderColor: place === n ? colors.text : colors.blue,
+                    borderColor: place === n ? colors.text : colors.accent,
                     backgroundColor:
                       place === n
-                        ? colors.primary
+                        ? colors.selected
                         : occupied.includes(n)
                         ? colors.raised
                         : colors.card,
@@ -225,7 +225,7 @@ export function BookingScreen({
         </Text>
       </View>
       <Text style={s.muted}>
-        Outlined · Available Blue · Selected Dashed · Booked
+        Outlined · Available Orange · Selected Dashed · Booked
       </Text>
       <View style={s.card}>
         <Detail label="Date" value={displayDate(date)} />
@@ -262,13 +262,13 @@ export function ReservationConfirmedScreen({
   return (
     <Screen>
       <Back onPress={() => navigation.popToTop()} />
-      <Heading kicker="The Reef Beach Resort" title="Reservation Confirmed" />
+      <Heading kicker="Shore Day Planner" title="Reservation Confirmed" />
       <View
         style={[
           s.card,
           {
             backgroundColor: colors.raised,
-            borderColor: colors.blue,
+            borderColor: colors.accent,
             padding: 22,
           },
         ]}

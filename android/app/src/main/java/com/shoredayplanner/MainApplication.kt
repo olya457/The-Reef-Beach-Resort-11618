@@ -1,4 +1,4 @@
-package com.thereef.beachresort
+package com.shoredayplanner
 
 import android.app.Application
 import com.facebook.react.PackageList

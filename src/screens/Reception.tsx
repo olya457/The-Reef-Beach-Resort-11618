@@ -112,7 +112,7 @@ export function ReceptionScreen() {
                         ? colors.green
                         : request.status === 'In progress'
                         ? colors.gold
-                        : colors.blue,
+                        : colors.accent,
                   }}
                 >
                   {request.status === 'Sent' ? 'Saved · Sent' : request.status}
@@ -185,7 +185,7 @@ export function ReceptionScreen() {
         ))}
       </View>
       {!!selected && (
-        <View style={[s.card, { borderColor: colors.blue }]}>
+        <View style={[s.card, { borderColor: colors.accent }]}>
           <Text style={s.label}>{selected}</Text>
           <Text style={s.muted}>
             Place {place || 'not selected'} · Saved locally

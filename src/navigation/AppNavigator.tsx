@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { DarkTheme, NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
@@ -100,14 +100,14 @@ export function AppNavigator() {
   return (
     <NavigationContainer
       theme={{
-        ...DarkTheme,
+        ...DefaultTheme,
         colors: {
-          ...DarkTheme.colors,
+          ...DefaultTheme.colors,
           background: colors.bg,
           card: colors.bg,
           text: colors.text,
           border: colors.border,
-          primary: colors.blue,
+          primary: colors.accent,
         },
       }}
     >
@@ -117,8 +117,8 @@ export function AppNavigator() {
           headerShown: false,
           animation: reduced ? 'none' : 'fade',
           tabBarShowLabel: false,
-          tabBarActiveTintColor: colors.blue,
-          tabBarInactiveTintColor: colors.text,
+          tabBarActiveTintColor: colors.accent,
+          tabBarInactiveTintColor: colors.muted,
           tabBarHideOnKeyboard: true,
           tabBarStyle: {
             position: 'absolute',
@@ -129,13 +129,13 @@ export function AppNavigator() {
             paddingTop: 8,
             paddingBottom: 8,
             paddingHorizontal: 4,
-            backgroundColor: '#121a22',
+            backgroundColor: colors.card,
             borderWidth: 1,
             borderTopWidth: 1,
-            borderColor: '#2c3945',
-            borderTopColor: '#2c3945',
+            borderColor: colors.border,
+            borderTopColor: colors.border,
             borderRadius: 22,
-            shadowColor: '#000000',
+            shadowColor: colors.text,
             shadowOffset: { width: 0, height: 6 },
             shadowOpacity: 0.2,
             shadowRadius: 12,
@@ -146,7 +146,7 @@ export function AppNavigator() {
             <TabMotion focused={focused}>
               <Icon
                 name={icons[route.name]}
-                color={focused ? colors.blue : color}
+                color={focused ? colors.accent : color}
                 size={24}
               />
             </TabMotion>

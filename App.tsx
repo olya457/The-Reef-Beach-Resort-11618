@@ -13,7 +13,7 @@ function Content() {
   const { state, ready, error, retry } = useResort();
   return (
     <View style={styles.page}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.bg} />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       {splash ? (
         <Splash onDone={finish} />
       ) : !ready ? (
@@ -21,7 +21,7 @@ function Content() {
           {error ? (
             <Text style={styles.muted}>{error}</Text>
           ) : (
-            <ActivityIndicator color={colors.blue} />
+            <ActivityIndicator color={colors.accent} />
           )}
         </View>
       ) : state.onboarded ? (

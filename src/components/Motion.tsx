@@ -182,7 +182,7 @@ const motionStyles = StyleSheet.create({
     right: 0,
     height: 2,
     borderRadius: 2,
-    backgroundColor: colors.blue,
+    backgroundColor: colors.accent,
   },
   track: {
     height: 6,
